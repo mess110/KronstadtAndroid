@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="default_ip">http://192.168.1.101:3000/</string>
+    <string name="app_name">Kronstadt</string>
+    <string name="save_button">save</string>
+
+</resources>
