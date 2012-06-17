@@ -1,22 +1,19 @@
 package org.kronstadt;
 
-import android.app.Activity;
-import android.content.Intent;
+import org.kronstadt.util.BaseActivity;
+import org.kronstadt.util.Preferences;
+import org.kronstadt.util.Util;
+
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class KronstadtAndroidActivity extends Activity {
+public class KronstadtAndroidActivity extends BaseActivity {
 	private WebView webView;
 	private Preferences pref;
-
-	private final int ID_MENU_EXIT = 3;
-	private final int ID_MENU_REFRESH = 2;
-	private final int ID_MENU_SETTINGS = 1;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -38,43 +35,28 @@ public class KronstadtAndroidActivity extends Activity {
 		loadUrl();
 	}
 
-	private void loadUrl() {
-		webView.loadUrl(pref.getUrl());
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(Menu.NONE, ID_MENU_SETTINGS, Menu.NONE, "settings");
-		menu.add(Menu.NONE, ID_MENU_REFRESH, Menu.NONE, "refresh");
-		menu.add(Menu.NONE, ID_MENU_EXIT, Menu.NONE, "exit");
-
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case ID_MENU_EXIT:
-			this.finish();
-			break;
-		case ID_MENU_REFRESH:
-			loadUrl();
-			break;
-		case ID_MENU_SETTINGS:
-			Intent myIntent = new Intent(this, SettingsActivity.class);
-			startActivity(myIntent);
-			break;
-		default:
-			break;
-		}
-		return false;
+	public void loadUrl() {
+		webView.loadUrl(pref.getKronUrl());
 	}
 
 	private class MyWebViewClient extends WebViewClient {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
-			view.loadUrl(url);
+			if (url.endsWith("cezara")) {
+				showMouseInputActivity();
+			}
+			Util.log(url);
 			return true;
+		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			Util.log("back button pressed");
+			return false;
+		} else {
+			return super.onKeyDown(keyCode, event);
 		}
 	}
 }

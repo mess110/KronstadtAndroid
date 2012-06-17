@@ -1,5 +1,7 @@
 package org.kronstadt;
 
+import org.kronstadt.util.Preferences;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +13,7 @@ import android.widget.Toast;
 public class SettingsActivity extends Activity {
 
 	private Button save;
-	private EditText edit;
+	private EditText kronUrl, realTimeUrl;
 	private Preferences pref;
 
 	/** Called when the activity is first created. */
@@ -22,12 +24,17 @@ public class SettingsActivity extends Activity {
 
 		pref = new Preferences(this);
 		save = (Button) findViewById(R.id.go_button);
-		edit = (EditText) findViewById(R.id.editText1);
-		edit.setText(pref.getUrl());
+
+		kronUrl = (EditText) findViewById(R.id.editText1);
+		kronUrl.setText(pref.getKronUrl());
+
+		realTimeUrl = (EditText) findViewById(R.id.editText2);
+		realTimeUrl.setText(pref.getRealtimeUrl());
 
 		save.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
-				pref.setUrl(edit.getText().toString());
+				pref.setKronUrl(kronUrl.getText().toString());
+				pref.setRealTimeUrl(realTimeUrl.getText().toString());
 				Toast.makeText(getApplicationContext(), "saved",
 						Toast.LENGTH_SHORT).show();
 			}
