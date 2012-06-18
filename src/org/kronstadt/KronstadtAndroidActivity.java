@@ -32,10 +32,10 @@ public class KronstadtAndroidActivity extends BaseActivity {
 		// workaround so that the default browser doesn't take over
 		webView.setWebViewClient(new MyWebViewClient());
 
-		loadUrl();
+		refresh();
 	}
 
-	public void loadUrl() {
+	public void refresh() {
 		webView.loadUrl(pref.getKronUrl());
 	}
 
