@@ -42,7 +42,7 @@ public class KronstadtAndroidActivity extends BaseActivity {
 	private class MyWebViewClient extends WebViewClient {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
-			if (url.endsWith("cezara")) {
+			if (url.endsWith("native_android_controller_mouse")) {
 				showMouseInputActivity();
 			}
 			Util.log(url);
