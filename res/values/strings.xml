@@ -3,6 +3,8 @@
 
     <string name="default_ip">http://192.168.1.101:3000/</string>
     <string name="app_name">Kronstadt</string>
+    <string name="answer">answer</string>
     <string name="save_button">save</string>
+    <string name="question">question</string>
 
 </resources>
