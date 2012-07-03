@@ -51,7 +51,6 @@ public class HTTPClient {
 
 		}
 	}
-	
 
 	public void startJRobotServer() {
 		String url = pref.getKronUrl() + "/json/mouse_input/";
@@ -88,5 +87,25 @@ public class HTTPClient {
 				}
 			}
 		}
+	}
+
+	public String ls(String path, boolean bookmarks) {
+		String url = pref.getKronUrl() + "/json/file_system";
+		if (bookmarks) {
+			url += "/bookmarks";
+		} else {
+			url += "/ls";
+			if (!path.startsWith("/")) {
+				url += "/";
+			}
+			url += path;
+		}
+		String result = "";
+		try {
+			result = executeHttpGet(url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

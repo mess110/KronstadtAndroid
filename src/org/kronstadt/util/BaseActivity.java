@@ -1,5 +1,6 @@
 package org.kronstadt.util;
 
+import org.kronstadt.FileSystemActivity;
 import org.kronstadt.SettingsActivity;
 
 import android.app.Activity;
@@ -11,9 +12,11 @@ public class BaseActivity extends Activity {
 	private final int ID_MENU_EXIT = 0;
 	private final int ID_MENU_REFRESH = 1;
 	private final int ID_MENU_SETTINGS = 2;
+	private final int ID_MENU_FILE_SYSTEM = 3;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(Menu.NONE, ID_MENU_FILE_SYSTEM, Menu.NONE, "file_system");
 		menu.add(Menu.NONE, ID_MENU_REFRESH, Menu.NONE, "refresh");
 		menu.add(Menu.NONE, ID_MENU_SETTINGS, Menu.NONE, "settings");
 		menu.add(Menu.NONE, ID_MENU_EXIT, Menu.NONE, "exit");
@@ -32,6 +35,9 @@ public class BaseActivity extends Activity {
 			break;
 		case ID_MENU_SETTINGS:
 			startActivity(SettingsActivity.class);
+			break;
+		case ID_MENU_FILE_SYSTEM:
+			startActivity(FileSystemActivity.class);
 			break;
 		default:
 			break;
