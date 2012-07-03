@@ -63,8 +63,9 @@ public class TriviaActivity extends Activity {
 		try {
 			json = new JSONObject(triviaQuestion);
 			String questionString = json.getString("question");
-			String questionText = new JSONObject(questionString).getString("text");
-			
+			String questionText = new JSONObject(questionString)
+					.getString("text");
+
 			q.question = questionText;
 
 			JSONArray answers = json.getJSONArray("answers");
@@ -73,7 +74,7 @@ public class TriviaActivity extends Activity {
 
 				q.addAnswer(answer.getString("text"));
 			}
-			
+
 			question.setText(q.question);
 			answerA.setText(q.answer1);
 			answerB.setText(q.answer2);
