@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.kronstadt.model.Answer;
 import org.kronstadt.model.Question;
-import org.kronstadt.util.HTTPClient;
+import org.kronstadt.network.HTTPClient;
 
 import android.app.Activity;
 import android.os.Bundle;

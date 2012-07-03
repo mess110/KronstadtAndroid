@@ -1,9 +1,9 @@
-package org.kronstadt;
+package org.kronstadt.model;
 
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.kronstadt.util.UDPClient;
+import org.kronstadt.network.UDPClient;
 
 public class SquareButton extends Sprite {
 
@@ -41,5 +41,4 @@ public class SquareButton extends Sprite {
 		}
 		return true;
 	}
-
 }

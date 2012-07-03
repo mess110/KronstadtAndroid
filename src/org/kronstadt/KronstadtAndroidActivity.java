@@ -43,7 +43,9 @@ public class KronstadtAndroidActivity extends BaseActivity {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			if (url.endsWith("native_android_controller_mouse")) {
-				showMouseInputActivity();
+				startActivity(MouseInputActivity.class);
+			} else if (url.endsWith("native_android_controller_trivia")) {
+				startActivity(TriviaActivity.class);
 			}
 			Util.log(url);
 			return true;

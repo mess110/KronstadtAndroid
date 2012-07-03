@@ -17,7 +17,8 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
-import org.kronstadt.util.UDPClient;
+import org.kronstadt.model.SquareButton;
+import org.kronstadt.network.UDPClient;
 
 public class MouseInputActivity extends BaseGameActivity {
 

@@ -1,4 +1,4 @@
-package org.kronstadt.util;
+package org.kronstadt.network;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.kronstadt.model.Answer;
+import org.kronstadt.util.Preferences;
 
 import android.content.Context;
 

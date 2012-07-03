@@ -1,9 +1,11 @@
-package org.kronstadt.util;
+package org.kronstadt.network;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+
+import org.kronstadt.util.Preferences;
 
 import android.content.Context;
 
