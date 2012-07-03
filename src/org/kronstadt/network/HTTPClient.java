@@ -51,6 +51,16 @@ public class HTTPClient {
 
 		}
 	}
+	
+
+	public void startJRobotServer() {
+		String url = pref.getKronUrl() + "/json/mouse_input/";
+		try {
+			executeHttpGet(url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static String executeHttpGet(String url) throws Exception {
 		BufferedReader in = null;

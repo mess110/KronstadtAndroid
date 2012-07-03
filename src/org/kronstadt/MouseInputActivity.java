@@ -18,6 +18,7 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextur
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.kronstadt.model.SquareButton;
+import org.kronstadt.network.HTTPClient;
 import org.kronstadt.network.UDPClient;
 
 public class MouseInputActivity extends BaseGameActivity {
@@ -32,12 +33,14 @@ public class MouseInputActivity extends BaseGameActivity {
 	private TextureRegion mOnScreenControlKnobTextureRegion;
 
 	private UDPClient udp;
+	private HTTPClient http;
 	private TextureRegion mSquare;
 	private BitmapTextureAtlas mBitmapTextureAtlas;
 
 	@Override
 	public Engine onLoadEngine() {
 		udp = new UDPClient(getBaseContext());
+		http = new HTTPClient(getBaseContext());
 
 		mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		EngineOptions eopts = new EngineOptions(true,
@@ -124,6 +127,7 @@ public class MouseInputActivity extends BaseGameActivity {
 
 	@Override
 	public void onLoadComplete() {
+		http.startJRobotServer();
 		udp.connect();
 	}
 }
