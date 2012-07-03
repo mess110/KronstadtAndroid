@@ -87,8 +87,10 @@ public class FileSystemActivity extends ListActivity {
 				String prevDir = FileUtil.prevDir(pwd);
 				loadList(prevDir);
 				Util.log("back button pressed");
+				return false;
+			} else {
+				return true;
 			}
-			return false;
 		} else {
 			return super.onKeyDown(keyCode, event);
 		}
