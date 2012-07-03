@@ -48,7 +48,7 @@ public class UDPClient {
 		byte[] msg = s.getBytes();
 
 		DatagramPacket packet = new DatagramPacket(msg, msg.length,
-				pref.getUDPAddress(), pref.getUDPPort());
+				pref.getUDPAddress(), pref.getUdpPort());
 
 		try {
 			dsocket.send(packet);

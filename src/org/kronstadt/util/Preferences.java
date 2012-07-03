@@ -19,23 +19,43 @@ public class Preferences {
 		editor.putString("kronUrl", url);
 		editor.commit();
 	}
-	
-	public void setRealTimeUrl(String url) {
+
+	public void setName(String name) {
 		Editor editor = preferences.edit();
-		editor.putString("realTimeUrl", url);
-		editor.commit();	
+		editor.putString("name", name);
+		editor.commit();
+	}
+
+	public void setUdpHost(String host) {
+		Editor editor = preferences.edit();
+		editor.putString("udpHost", host);
+		editor.commit();
+	}
+
+	public void setUdpPort(String port) {
+		Editor editor = preferences.edit();
+		editor.putInt("udpPort", Integer.valueOf(port));
+		editor.commit();
 	}
 
 	public String getKronUrl() {
 		return preferences.getString("kronUrl", "http://192.168.1.101:3000");
 	}
-	
-	public String getRealtimeUrl() {
-		return preferences.getString("realTimeUrl", "http://192.168.1.101:3001");
+
+	public int getUdpPort() {
+		return preferences.getInt("udpPort", 3002);
+	}
+
+	public String getName() {
+		return preferences.getString("name", "name");
+	}
+
+	public String getUdpHost() {
+		return preferences.getString("udpHost", "192.168.1.101");
 	}
 
 	public InetAddress getUDPAddress() {
-		String host = "192.168.1.100";
+		String host = getUdpHost();
 
 		InetAddress address = null;
 		try {
@@ -44,9 +64,5 @@ public class Preferences {
 			e.printStackTrace();
 		}
 		return address;
-	}
-
-	public int getUDPPort() {
-		return 3002;
 	}
 }

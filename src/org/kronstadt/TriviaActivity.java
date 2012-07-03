@@ -3,6 +3,7 @@ package org.kronstadt;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kronstadt.model.Answer;
 import org.kronstadt.model.Question;
 import org.kronstadt.util.HTTPClient;
 
@@ -10,6 +11,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -71,18 +74,29 @@ public class TriviaActivity extends Activity {
 			JSONArray answers = json.getJSONArray("answers");
 			for (int i = 0; i < answers.length(); i++) {
 				JSONObject answer = (JSONObject) answers.get(i);
-
-				q.addAnswer(answer.getString("text"));
+				q.addAnswer(answer);
 			}
 
 			question.setText(q.question);
-			answerA.setText(q.answer1);
-			answerB.setText(q.answer2);
-			answerC.setText(q.answer3);
-			answerD.setText(q.answer4);
+
+			prepareAnswerButton(answerA, q.answer1);
+			prepareAnswerButton(answerB, q.answer2);
+			prepareAnswerButton(answerC, q.answer3);
+			prepareAnswerButton(answerD, q.answer4);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void prepareAnswerButton(Button button, final Answer answer) {
+		button.setText(answer.text);
+		button.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				http.answer(answer);
+			}
+		});
 	}
 
 	@Override

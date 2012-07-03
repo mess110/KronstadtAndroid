@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class SettingsActivity extends Activity {
 
 	private Button save;
-	private EditText kronUrl, realTimeUrl;
+	private EditText name, kronUrl, udpHost, udpPort;
 	private Preferences pref;
 
 	/** Called when the activity is first created. */
@@ -25,16 +25,24 @@ public class SettingsActivity extends Activity {
 		pref = new Preferences(this);
 		save = (Button) findViewById(R.id.go_button);
 
-		kronUrl = (EditText) findViewById(R.id.editText1);
+		kronUrl = (EditText) findViewById(R.id.kron_server_url);
 		kronUrl.setText(pref.getKronUrl());
 
-		realTimeUrl = (EditText) findViewById(R.id.editText2);
-		realTimeUrl.setText(pref.getRealtimeUrl());
+		name = (EditText) findViewById(R.id.name);
+		name.setText(pref.getName());
+
+		udpHost = (EditText) findViewById(R.id.udp_host);
+		udpHost.setText(pref.getUdpHost());
+
+		udpPort = (EditText) findViewById(R.id.udp_port);
+		udpPort.setText(String.valueOf(pref.getUdpPort()));
 
 		save.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
 				pref.setKronUrl(kronUrl.getText().toString());
-				pref.setRealTimeUrl(realTimeUrl.getText().toString());
+				pref.setUdpHost(udpHost.getText().toString());
+				pref.setUdpPort(udpPort.getText().toString());
+				pref.setName(name.getText().toString());
 				Toast.makeText(getApplicationContext(), "saved",
 						Toast.LENGTH_SHORT).show();
 			}

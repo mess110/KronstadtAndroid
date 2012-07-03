@@ -9,6 +9,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.kronstadt.model.Answer;
 
 import android.content.Context;
 
@@ -30,9 +31,19 @@ public class HTTPClient {
 		}
 		return result;
 	}
-	
+
 	public void finishQuestion() {
 		String url = pref.getKronUrl() + "/json/trivia/finish";
+		try {
+			executeHttpGet(url);
+		} catch (Exception e) {
+
+		}
+	}
+
+	public void answer(Answer answer) {
+		String url = pref.getKronUrl() + "/json/trivia/" + pref.getName() + "/"
+				+ answer.id;
 		try {
 			executeHttpGet(url);
 		} catch (Exception e) {
