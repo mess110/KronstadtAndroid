@@ -112,5 +112,7 @@ public class TriviaActivity extends Activity {
 		answerB = (Button) findViewById(R.id.b_button);
 		answerC = (Button) findViewById(R.id.c_button);
 		answerD = (Button) findViewById(R.id.d_button);
+		
+		populateQuestionContent();
 	}
 }
