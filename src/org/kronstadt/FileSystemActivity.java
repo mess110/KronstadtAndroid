@@ -11,6 +11,7 @@ import org.kronstadt.util.Util;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -21,13 +22,15 @@ import android.widget.TextView;
 public class FileSystemActivity extends ListActivity {
 
 	private HTTPClient http;
+	private String pwd;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		http = new HTTPClient(getApplicationContext());
 
-		loadList("/");
+		pwd = "/";
+		loadList(pwd);
 	}
 
 	public void loadList(String path) {
@@ -35,19 +38,13 @@ public class FileSystemActivity extends ListActivity {
 	}
 
 	public void loadBookmarks() {
-		loadList("/", true);
+		loadList(pwd, true);
 	}
 
-	// this is incredibly ugly
-	// fix it
-	// need a URL joining class
 	private void loadList(String path, boolean bookmarks) {
 		ArrayList<String> files = new ArrayList<String>();
 		if (!bookmarks) {
 			files.add("bookmarks");
-			files.add("..");
-		} else {
-
 		}
 
 		String jsonString = http.ls(path, bookmarks);
@@ -57,14 +54,9 @@ public class FileSystemActivity extends ListActivity {
 			for (int i = 0; i < fileNames.length(); i++) {
 				files.add((String) fileNames.get(i));
 			}
-			files.add(0, response.getString("pwd"));
+			pwd = response.getString("pwd");
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
-
-		final String pwd = files.remove(0);
-		if (pwd.equals("/")) {
-			files.remove(1);
 		}
 		Util.log(pwd);
 
@@ -83,13 +75,22 @@ public class FileSystemActivity extends ListActivity {
 					return;
 				}
 
-				if (position == 1 && s.equals("..")) {
-					String prevDir = FileUtil.prevDir(pwd);
-					loadList(prevDir);
-					return;
-				}
 				loadList(FileUtil.join(pwd, s));
 			}
 		});
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			if (!pwd.equals("/")) {
+				String prevDir = FileUtil.prevDir(pwd);
+				loadList(prevDir);
+				Util.log("back button pressed");
+			}
+			return false;
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
 	}
 }

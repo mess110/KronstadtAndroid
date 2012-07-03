@@ -14,8 +14,12 @@ public class FileUtil {
 
 	public static String prevDir(String path) {
 		String s = path;
-		s = s.substring(0, s.lastIndexOf("/"));
-		s = s.substring(0, s.lastIndexOf("/"));
+		if (s.indexOf("/") != -1) {
+			s = s.substring(0, s.lastIndexOf("/"));
+		}
+		if (s.indexOf("/") != -1) {
+			s = s.substring(0, s.lastIndexOf("/"));
+		}
 		return s;
 	}
 }
