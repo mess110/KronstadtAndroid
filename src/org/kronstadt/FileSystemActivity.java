@@ -12,6 +12,8 @@ import org.kronstadt.util.Util;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,16 +22,41 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class FileSystemActivity extends ListActivity {
+	private final int ID_MENU_EXIT = 0;
+	private final int ID_MENU_BOOKMARKS = 1;
 
 	private HTTPClient http;
 	private String pwd;
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(Menu.NONE, ID_MENU_BOOKMARKS, Menu.NONE, "bookmarks");
+		menu.add(Menu.NONE, ID_MENU_EXIT, Menu.NONE, "exit");
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case ID_MENU_EXIT:
+			this.finish();
+			break;
+		case ID_MENU_BOOKMARKS:
+			loadBookmarks();
+			break;
+		default:
+			break;
+		}
+		return false;
+	}
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		http = new HTTPClient(getApplicationContext());
-
 		pwd = "/";
+
 		loadList(pwd);
 	}
 
@@ -43,9 +70,6 @@ public class FileSystemActivity extends ListActivity {
 
 	private void loadList(String path, boolean bookmarks) {
 		ArrayList<String> files = new ArrayList<String>();
-		if (!bookmarks) {
-			files.add("bookmarks");
-		}
 
 		String jsonString = http.ls(path, bookmarks);
 		try {
@@ -70,11 +94,6 @@ public class FileSystemActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				String s = (String) (((TextView) view).getText());
-				if (position == 0 && s.equals("bookmarks")) {
-					loadBookmarks();
-					return;
-				}
-
 				loadList(FileUtil.join(pwd, s));
 			}
 		});
@@ -86,10 +105,9 @@ public class FileSystemActivity extends ListActivity {
 			if (!pwd.equals("/")) {
 				String prevDir = FileUtil.prevDir(pwd);
 				loadList(prevDir);
-				Util.log("back button pressed");
 				return false;
 			} else {
-				return true;
+				return super.onKeyDown(keyCode, event);
 			}
 		} else {
 			return super.onKeyDown(keyCode, event);
